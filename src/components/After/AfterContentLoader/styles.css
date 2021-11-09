@@ -1,0 +1,29 @@
+.content-loader {
+  max-width: 470px;
+  width: auto;
+  max-height: 254px;
+}
+
+@media (min-width: 768px) {
+ 
+
+  .content-loader {
+    height: auto;
+    max-width: 1270px;
+    min-width: 425px;
+   
+  }
+
+}
+
+
+@media (min-width: 992px) {
+ 
+
+  .content-loader {
+    height: auto;
+    min-width: 425px;
+    max-width: 870px;
+  }
+  
+}

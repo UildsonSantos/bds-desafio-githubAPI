@@ -14,6 +14,7 @@ type FormData = {
 
 const Before = () => {
   const [user, setUser] = useState<User>();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     login: '',
   });
@@ -33,9 +34,13 @@ const Before = () => {
       url: `${BASE_URL}/${formData.login}`,
     };
 
+    setIsLoading(true);
     axios(params)
       .then((response) => {
         setUser(response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -63,7 +68,7 @@ const Before = () => {
       </div>
       {
         user && 
-        <After user={user} />
+        <After isLoaded={isLoading} user={user} />
       }
     </>
   );

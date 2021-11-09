@@ -1,0 +1,15 @@
+.image-loader {
+  max-width: 295px;
+  max-height: 247px;
+  border-radius: 50%;
+}
+
+
+@media (min-width: 992px) {
+  .image-loader {
+    width: 247px;
+    height: auto;
+  }
+
+ }
+ 
