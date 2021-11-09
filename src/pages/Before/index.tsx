@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { BASE_URL } from '../../util/requests';
-import { AxiosParams } from '../../types/vendor/axios';
+import { BASE_URL } from 'util/requests';
+import { AxiosParams } from 'types/vendor/axios';
+import { User } from 'types/user';
+import After from 'components/After';
 
 import './styles.css';
 
@@ -11,7 +13,7 @@ type FormData = {
 };
 
 const Before = () => {
-  
+  const [user, setUser] = useState<User>();
   const [formData, setFormData] = useState<FormData>({
     login: '',
   });
@@ -28,12 +30,12 @@ const Before = () => {
 
     const params: AxiosParams = {
       method: 'GET',
-      url: `${BASE_URL}/${formData.login}`     
+      url: `${BASE_URL}/${formData.login}`,
     };
 
     axios(params)
       .then((response) => {
-       console.log(response.data);
+        setUser(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -41,24 +43,29 @@ const Before = () => {
   };
 
   return (
-    
-    <div className="before-container">
-      <h1>Encontre um perfil Github</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="login"
-          className="search-input"
-          placeholder="Usuario Github"
-          value={formData.login}
-          onChange={handleChange}
-        />
+    <>
+      <div className="before-container">
+        <h1>Encontre um perfil Github</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="login"
+            className="search-input"
+            placeholder="Usuario Github"
+            value={formData.login}
+            onChange={handleChange}
+          />
 
-        <div>
-          <button type="submit">Começar</button>
-        </div>
-      </form>
-    </div>    
+          <div>
+            <button type="submit">Começar</button>
+          </div>
+        </form>
+      </div>
+      {
+        user && 
+        <After user={user} />
+      }
+    </>
   );
 };
 
